@@ -1,8 +1,8 @@
 Datasets path is described as follow: 
 
- /datasets
-  
-   /flowers
+    /datasets
+ 
+      /flowers
 			
 	 /train
 				
