@@ -1,6 +1,6 @@
 Datasets path is described as follow: 
 
-/datasets
+ /datasets
   
    /flowers
 			
