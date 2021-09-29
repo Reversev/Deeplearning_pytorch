@@ -1,48 +1,49 @@
-Datasets path is described as follow:   \
-          /datasets   \
+Datasets path is described as follow: 
+
+          /datasets
 	  
-				/flowers   \
+				/flowers
 				
-					/train   \
+					/train
 					
-						/daisy   \
+						/daisy 
 						
-							.......jpg   \
+							.......jpg 
 							
-						/dandelion   \
+						/dandelion 
+				
+							.......jpg 
+							
+						/rose  
 						
-							.......jpg   \
+							.......jpg  
 							
-						/rose   \
+						/sunflower   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/sunflower   \
+						/tulip   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/tulip   \
-						
-							.......jpg   \
-							
-					/val   \
+					/val   
 					
-						/daisy   \
+						/daisy   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/dandelion   \
+						/dandelion   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/rose   \
+						/rose   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/sunflower   \
+						/sunflower   
 						
-							.......jpg   \
+							.......jpg   
 							
-						/tulip   \
+						/tulip   
 						
 							.......jpg
