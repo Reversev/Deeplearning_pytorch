@@ -14,25 +14,25 @@ Datasets path is described as follow:
 			
 			.......jpg 
 						
-	    /rose  
+	        /rose  
 					
 		    .......jpg  
 						
-		/sunflower   
+	        /sunflower   
 					
 			.......jpg   
 						
-	    /tulip   
+	        /tulip   
 					
 			.......jpg   
 						
 	   /val   
 				
-	    /daisy   
+	        /daisy   
 					
 			.......jpg   
 						
-	    /dandelion   
+	        /dandelion   
 					
 			.......jpg   
 						
