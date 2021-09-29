@@ -4,7 +4,7 @@ Datasets path is described as follow:
  
       /flowers
 			
-	 /train
+	    /train
 				
 		/daisy 
 					
@@ -26,7 +26,7 @@ Datasets path is described as follow:
 					
 			.......jpg   
 						
-	/val   
+	   /val   
 				
 	    /daisy   
 					
