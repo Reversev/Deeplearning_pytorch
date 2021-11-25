@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/9/19 14:52
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: train.py
 import os
 import json
@@ -20,6 +20,8 @@ def main():
     CLASS_NUM = 5
     EPOCH = 10
     SAVE_PATH = './model/' + model_name + '_' + dataset_name + '.pth'
+    if not os.path.exists(os.path.dirname(SAVE_PATH)):
+        os.mkdir(os.path.dirname(SAVE_PATH))
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print('Use device: ', device)  # print used device during the training
 
@@ -117,7 +119,7 @@ def main():
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(net.state_dict(), SAVE_PATH)
-
+    print('Training best accuracy: ', best_acc)
     print('Finished Training!')
 
 

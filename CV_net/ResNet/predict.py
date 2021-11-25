@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/9/19 14:53
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: predict.py
 import os
 import json

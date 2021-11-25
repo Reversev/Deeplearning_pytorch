@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/9/19 16:51
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: train_pre.py
 import os
 import json

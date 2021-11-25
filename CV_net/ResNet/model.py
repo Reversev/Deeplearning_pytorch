@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/9/19 14:53
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: model.py
 import torch
 import torch.nn as nn
@@ -45,6 +45,9 @@ class BasicBlock(nn.Module):
 
 # build for 50, 101 and 152 layers
 class Bottleneck(nn.Module):
+    """原论文中，在虚线残差结构的主分支上，第一个1x1卷积层的步距是2，第二个3x3卷积层步距是1。
+    但在pytorch官方实现过程中是第一个1x1卷积层的步距是1，第二个3x3卷积层步距是2，
+    这么做的好处是能够在top1上提升大概0.5%的准确率。"""
     expansion = 4
 
     def __init__(self, in_channel, out_channel, stride=1, shortcut=None):
@@ -58,7 +61,7 @@ class Bottleneck(nn.Module):
         self.bn2 = nn.BatchNorm2d(out_channel)
         # -----------------------------------
         self.conv3 = nn.Conv2d(in_channels=out_channel, out_channels=out_channel * self.expansion,
-                               kernel_size=3, stride=1, bias=False)   # unsqueeze channels
+                               kernel_size=1, stride=1, bias=False)   # unsqueeze channels
         self.bn3 = nn.BatchNorm2d(out_channel * self.expansion)
         self.relu = nn.ReLU(inplace=True)
         self.shortcut = shortcut
@@ -163,3 +166,7 @@ def resnet101(num_classes=1000, include_top=True):
 def resnet152(num_classes=1000, include_top=True):
     return ResNet(Bottleneck, [3, 8, 36, 3], num_classes=num_classes, include_top=include_top)
 
+
+# x = torch.randn((1, 3, 224, 224))
+# net = resnet50(num_classes=5, include_top=True)
+# print(net(x).shape)
