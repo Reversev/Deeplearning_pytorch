@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/8/25 16:14
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: predict.py
 import os
 import json
@@ -52,7 +52,7 @@ for im_path in glob.glob(TEST_PATH + '*.jpg'):
         confidence = torch.max(torch.softmax(output, dim=1)).cpu().data.numpy()
         predict = torch.max(output, dim=1)[1].cpu().data.numpy()
 
-    print('Vertification picture:', im_path.split('/')[-1], '\t',
-          'Recognition result:', classes_indict[str(int(predict))], '\t',
+    print('Vertification picture:', im_path.split('/')[-1], '\n',
+          'Recognition result:', classes_indict[str(int(predict))], '\n',
           'Recognition confidence:', str(confidence))
 

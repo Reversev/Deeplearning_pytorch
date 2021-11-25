@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # @Time : 2021/8/25 16:14
-# @Author : ''
+# @Author : 'IReverser'
 # @FileName: train.py
 import os
 import json
@@ -20,6 +20,8 @@ def main():
     CLASS_NUM = 5
     EPOCH = 10
     SAVE_PATH = './model/' + model_name + '_' + dataset_name + '.pth'
+    if not os.path.exists(os.path.dirname(SAVE_PATH)):
+        os.mkdir(os.path.dirname(SAVE_PATH))
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
     print('Use device: ', device)  # print used device during the training
 
@@ -74,10 +76,10 @@ def main():
     # print(''.join('%5s' % cla_dict[val_label[j].item()] for j in range(4)))
     # imshow(utils.make_grid(val_image))
 
-    net = vgg(model_name=model_name, num_classes=CLASS_NUM, init_weights=True)
+    net = vgg(model_name=model_name, n_classes=CLASS_NUM, init_weights=True)
     net.to(device)
     loss_function = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(net.parameters(),lr=0.0001)
+    optimizer = optim.Adam(net.parameters(), lr=0.0001)
 
     best_acc = 0.0
     train_steps = len(train_loader)
@@ -116,7 +118,7 @@ def main():
         if val_acc > best_acc:
             best_acc = val_acc
             torch.save(net.state_dict(), SAVE_PATH)
-
+    print('Training best accuracy: ', best_acc)
     print('Finished Training!')
 
 
