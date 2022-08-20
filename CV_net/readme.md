@@ -31,3 +31,19 @@
                  └─xxx.jpg
 
   ​       
+***Backbones***
+* LeNet
+* AlexNet (2012)
+* GoogLeNet (2014)
+* VGG (2016)
+* ResNet (2016)
+* WRN
+* ResNeXt
+* PreActResNet
+* DenseNet
+* MobileNet (v2/v3)
+* ShuffleNet (v1)
+* SENet
+* SKNet
+* ECANet
+* 
