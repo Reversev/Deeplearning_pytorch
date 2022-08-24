@@ -46,4 +46,5 @@
 * SENet
 * SKNet
 * ECANet
-* 
+* Vision Transformer
+*
