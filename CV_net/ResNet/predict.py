@@ -41,7 +41,7 @@ net.load_state_dict(torch.load(MODEL_PATH))
 
 for im_path in glob.glob(TEST_PATH + '*.jpg'):
     # load data
-    im = Image.open(im_path)
+    im = Image.open(im_path).convert("RGB")
     im = transform(im)  # [H, W, C] -> [C, H, W]
     im = torch.unsqueeze(im, dim=0)  # [C, H, W] -> [N, C, H, W]
     im = im.to(device)
