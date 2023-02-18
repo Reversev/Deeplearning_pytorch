@@ -264,7 +264,9 @@ def main_worker(gpu, ngpus_per_node, log, args):
 
     if args.evaluate:
         val_loss, val_acc1, val_acc5 = validate(val_loader, model, criterion, args)
-        print({"Test_Loss": "%.5f" % val_loss, "Test_Acc@1": "%.3f" % val_acc1, "Test_Acc@5": "%.3f" % val_acc5})
+        row = {"Test_Loss": "%.5f" % val_loss, "Test_Acc@1": "%.3f" % val_acc1, "Test_Acc@5": "%.3f" % val_acc5}
+        log.writerow(row)
+        print(row)
         return
 
     print("=> Start training...")
@@ -300,7 +302,7 @@ def main_worker(gpu, ngpus_per_node, log, args):
                             'state_dict': model.state_dict(),
                             'best_acc1': best_acc1,
                             'optimizer': optimizer.state_dict(),
-                            'scheduler': lr_scheduler.state_dict()},  './checkpoints/model_{}_best.pt'.format(args.arch))
+                            'scheduler': lr_scheduler.state_dict()},  './checkpoints/model_{}_seed{}_best.pt'.format(args.arch, str(args.seed)))
         else:
             pass
     print("=> Training Finish!")
@@ -319,7 +321,10 @@ def main():
 
     args.model_name = '{}_{}_seed{}'.format(args.arch, args.data, str(args.seed))
     make_dir('./logs/')
-    log = Logger(args=args, filename='./logs/' + args.model_name + ".txt")
+    if args.evaluate:
+        log = Logger(args=args, filename='./logs/' + args.model_name + "_test.txt")
+    else:
+        log = Logger(args=args, filename='./logs/' + args.model_name + ".txt")
     print(args)
 
     if args.dist_url == 'env://' and args.world_size == -1:
