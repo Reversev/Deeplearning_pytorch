@@ -47,4 +47,6 @@
 * SKNet
 * ECANet
 * Vision Transformer
-*
+* RegNet
+* RepVGG
+* 
