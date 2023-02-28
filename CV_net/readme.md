@@ -49,4 +49,8 @@
 * Vision Transformer
 * RegNet
 * RepVGG
-* 
+* GhostNet
+* MobileViT
+* DeiT
+*
+
