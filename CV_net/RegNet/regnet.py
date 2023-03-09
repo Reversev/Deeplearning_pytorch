@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time: 2022/12/16 14:40
 # @Author: 'IReverser'
-# @ FileName: regnet.py
+# @ FileName: mobilevit.py
 # RegNet
 from typing import Optional
 import numpy as np

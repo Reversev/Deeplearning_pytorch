@@ -69,11 +69,8 @@ class RepVGGBlock(nn.Module):
     def use_custom_L2(self):
         k3 = self.rbr_dense.conv.weight
         k1 = self.rbr_1x1.conv.weight
-        t3 = (self.rbr_dense.bn.weight / ((self.rbr_dense.bn.running_var + self.rbr_dense.bn.eps).sqrt())).reshape(-1,
-                                                                                                                   1, 1,
-                                                                                                                   1).detach()
-        t1 = (self.rbr_1x1.bn.weight / ((self.rbr_1x1.bn.running_var + self.rbr_1x1.bn.eps).sqrt())).reshape(-1, 1, 1,
-                                                                                                             1).detach()
+        t3 = (self.rbr_dense.bn.weight / ((self.rbr_dense.bn.running_var + self.rbr_dense.bn.eps).sqrt())).reshape(-1, 1, 1, 1).detach()
+        t1 = (self.rbr_1x1.bn.weight / ((self.rbr_1x1.bn.running_var + self.rbr_1x1.bn.eps).sqrt())).reshape(-1, 1, 1, 1).detach()
 
         l2_loss_circle = (k3 ** 2).sum() - (k3[:, :, 1:2,
                                             1:2] ** 2).sum()  # The L2 loss of the "circle" of weights in 3x3 kernel. Use regular L2 on them.

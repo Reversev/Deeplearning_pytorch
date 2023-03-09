@@ -19,7 +19,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from utils import make_dir, AverageMeter, Logger, accuracy, format_time
-from mobilevit import create_mobilevit
+from efficientnetv1 import create_efficientnetv1, input_size_dict
 
 try:
     from apex import amp
@@ -28,14 +28,12 @@ except ImportError:
 
 
 def parse_option():
-    parser = argparse.ArgumentParser("Pytorch Training for RegNet")
+    parser = argparse.ArgumentParser("Pytorch Training for EfficientNetv1")
     parser.add_argument('--data', default="flowers", type=str, help='path to dataset')
-    parser.add_argument('-a', '--arch', metavar='ARCH', default='RegNetx_200mf', help='RegNetx_200mf, regnetx_400mf, regnetx_600mf, regnetx_800mf, '
-                                                                        'regnetx_1.6gf, regnetx_3.2gf, regnetx_4.0gf, regnetx_6.4gf, regnetx_8.0gf, '
-                                                                        'regnetx_12gf, regnetx_16gf, regnetx_32gf, '
-                                                                        'regnety_200mf, regnety_400mf, regnety_600mf, regnety_800mf, '
-                                                                        'regnety_1.6gf, regnety_3.2gf, regnety_4.0gf, regnety_6.4gf, regnety_8.0gf, '
-                                                                        'regnety_12gf, regnety_16gf, regnety_32gf')
+    parser.add_argument('-a', '--arch', metavar='ARCH', default='effnetv1_b0', help='effnetv1_b1, effnetv1_b2'
+                                                                        'effnetv1_b3, effnetv1_b4 '
+                                                                        'effnetv1_b5, effnetv1_b6'
+                                                                        'effnetv1_b7')
     parser.add_argument('--num_classes', default=5, type=int, metavar='N', help='the number of classes')
 
     parser.add_argument('--epochs', default=200, type=int, metavar='N', help='number of total epochs to training')
@@ -164,7 +162,7 @@ def main_worker(gpu, ngpus_per_node, log, args):
         dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
                                 world_size=args.world_size, rank=args.rank)
 
-    model = create_regnet(model_name=args.arch, num_classes=args.num_classes)
+    model = create_efficientnetv1(args.arch, num_classes=args.num_classes)
 
     if not torch.cuda.is_available():
         print("Using CPU, this will be slow")
@@ -238,12 +236,13 @@ def main_worker(gpu, ngpus_per_node, log, args):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
 
-    train_transform = transforms.Compose([transforms.RandomResizedCrop(224),
+    train_transform = transforms.Compose([transforms.RandomResizedCrop(input_size_dict[args.arch]),
                                           transforms.RandomHorizontalFlip(),
                                           transforms.ToTensor(),
                                           normalize,])
-    val_transform = transforms.Compose([transforms.Resize(256),
-                                        transforms.CenterCrop(224),
+
+    val_transform = transforms.Compose([transforms.Resize(256 if input_size_dict[args.arch] < 256 else input_size_dict[args.arch]),
+                                        transforms.CenterCrop(input_size_dict[args.arch]),
                                         transforms.ToTensor(),
                                         normalize,])
 

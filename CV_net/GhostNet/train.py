@@ -28,7 +28,7 @@ except ImportError:
 
 
 def parse_option():
-    parser = argparse.ArgumentParser("Pytorch Training for RegNet")
+    parser = argparse.ArgumentParser("Pytorch Training for GhostNet")
     parser.add_argument('--data', default="flowers", type=str, help='path to dataset')
     parser.add_argument('-a', '--arch', metavar='ARCH', default='ghostnet', help='model name for logs')
     parser.add_argument('--num_classes', default=5, type=int, metavar='N', help='the number of classes')

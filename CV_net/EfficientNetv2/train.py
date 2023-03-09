@@ -19,7 +19,7 @@ import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from utils import make_dir, AverageMeter, Logger, accuracy, format_time
-from mobilevit import create_mobilevit
+from efficientnetv2 import create_efficientnetv2, input_size_dict
 
 try:
     from apex import amp
@@ -28,20 +28,15 @@ except ImportError:
 
 
 def parse_option():
-    parser = argparse.ArgumentParser("Pytorch Training for RegNet")
+    parser = argparse.ArgumentParser("Pytorch Training for EfficientNetv2 (use huge memory capacity)")
     parser.add_argument('--data', default="flowers", type=str, help='path to dataset')
-    parser.add_argument('-a', '--arch', metavar='ARCH', default='RegNetx_200mf', help='RegNetx_200mf, regnetx_400mf, regnetx_600mf, regnetx_800mf, '
-                                                                        'regnetx_1.6gf, regnetx_3.2gf, regnetx_4.0gf, regnetx_6.4gf, regnetx_8.0gf, '
-                                                                        'regnetx_12gf, regnetx_16gf, regnetx_32gf, '
-                                                                        'regnety_200mf, regnety_400mf, regnety_600mf, regnety_800mf, '
-                                                                        'regnety_1.6gf, regnety_3.2gf, regnety_4.0gf, regnety_6.4gf, regnety_8.0gf, '
-                                                                        'regnety_12gf, regnety_16gf, regnety_32gf')
+    parser.add_argument('-a', '--arch', metavar='ARCH', default='effnetv2_s', help='effnetv2_m, effnetv2_l')
     parser.add_argument('--num_classes', default=5, type=int, metavar='N', help='the number of classes')
 
     parser.add_argument('--epochs', default=200, type=int, metavar='N', help='number of total epochs to training')
     parser.add_argument('--start-epoch', default=0, type=int, metavar='N', help='manual epoch number (useful on restart)')
-    parser.add_argument('-b', '---batch-size', default=64, type=int, metavar='N',
-                        help='mini-batch size (default: 256), this is the total'
+    parser.add_argument('-b', '---batch-size', default=4, type=int, metavar='N',
+                        help='mini-batch size (default: 4), this is the total'
                              'batch size of all GPUs on the current node when '
                              'using Data Parallel or Distributed Data Parallel')
     parser.add_argument('--lr', '--learning-rate', default=0.01, type=float, metavar='LR', help='initial learning rate', dest='lr')
@@ -164,7 +159,7 @@ def main_worker(gpu, ngpus_per_node, log, args):
         dist.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
                                 world_size=args.world_size, rank=args.rank)
 
-    model = create_regnet(model_name=args.arch, num_classes=args.num_classes)
+    model = create_efficientnetv2(args.arch, num_classes=args.num_classes)
 
     if not torch.cuda.is_available():
         print("Using CPU, this will be slow")
@@ -238,12 +233,16 @@ def main_worker(gpu, ngpus_per_node, log, args):
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
 
-    train_transform = transforms.Compose([transforms.RandomResizedCrop(224),
+    train_size, eval_size = int(input_size_dict[args.arch].split("_")[0]), int(input_size_dict[args.arch].split("_")[1])
+    print("train_size:", train_size, "eval_size:", eval_size)
+
+    train_transform = transforms.Compose([transforms.RandomResizedCrop(train_size),
                                           transforms.RandomHorizontalFlip(),
                                           transforms.ToTensor(),
                                           normalize,])
-    val_transform = transforms.Compose([transforms.Resize(256),
-                                        transforms.CenterCrop(224),
+
+    val_transform = transforms.Compose([transforms.Resize(eval_size),
+                                        transforms.CenterCrop(eval_size),
                                         transforms.ToTensor(),
                                         normalize,])
 
