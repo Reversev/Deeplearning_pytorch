@@ -52,5 +52,8 @@
 * GhostNet
 * MobileViT
 * DeiT
-*
+* EffieientNetv1(EffieientNet)
+* EffieientNetv2
+
+
 
