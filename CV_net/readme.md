@@ -54,6 +54,9 @@
 * DeiT
 * EffieientNetv1(EffieientNet)
 * EffieientNetv2
+* Swin Transformer
+* VanillaNet
+* 
 
 
 
