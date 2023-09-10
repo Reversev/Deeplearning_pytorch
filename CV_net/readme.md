@@ -38,6 +38,7 @@
 * VGG (2016)
 * ResNet (2016)
 * WRN
+* SPPNet
 * ResNeXt
 * PreActResNet
 * DenseNet
