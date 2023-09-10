@@ -10,7 +10,7 @@ import torch
 from PIL import Image
 from torchvision import transforms
 import matplotlib.pyplot as plt
-from models import model_list
+from vanillanet import model_list
 '''vanillanet_5, vanillanet_6,vanillanet_7,vanillanet_9,
 vanillanet_11,vanillanet_12,vanillanet_13,vanillanet_13x1,vanillanet_13x1a
 '''
