@@ -20,7 +20,7 @@ from model import model_list
 
 
 def argspar():
-    parser = argparse.ArgumentParser(description='WRN PyTorch Training')
+    parser = argparse.ArgumentParser(description='Swin Transformer PyTorch Training')
     parser.add_argument('--dataset-name', '-d', default='flowers')
     parser.add_argument('--img_path', '-p', default='../datasets/', help="images path")
     parser.add_argument('--manual-seed', default=0, type=int, help="random seed in range [1, 10000] if not define")
@@ -129,7 +129,7 @@ def main():
     with open("classes_indices.json", "w") as f:
         f.write(json_str)
 
-    net = model_list.get(args.model_name)(num_classes=1000)
+    net = model_list.get(args.model_name)(num_classes=len(train_dataset.classes))
 
     start_epoch = args.start_epoch
     net = net.to(device)
@@ -215,7 +215,8 @@ def main():
                      "test1_acc": '%.2f' % top1.avg,
                      "test5_acc": '%.2f' % top5.avg,
                      "best_acc": '%.3f' % best_acc.data,
-                     "loss": '%.5f' % (sum(loss_avg.values()))}
+                     "loss": '%.5f' % (sum(loss_avg.values())),
+                     "lr": '%.3f' % (optimizer.state_dict()['param_groups'][0]['lr'])}
         loss_avg = {k: '%.5f' % loss_avg[k] for k in loss_avg}
         print_bar.update(loss_avg)
         print_bar.update({"time": format_time(time.time() - st_time),

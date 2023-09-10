@@ -10,11 +10,11 @@ import torch
 from PIL import Image
 from torchvision import transforms
 import matplotlib.pyplot as plt
-from models import model_list
-# 'vitbase16, vitbase32, vitlarge16, ' \
-# 'vitbase16_21k, vitbase32_21k, vitlarge16_21k, vitlarge32_21k, vithuge14_21k'
+from model import model_list
+# 'swin_tiny, swin_small, swin_base, '
+# 'swin_base384, swin_base_22k, swin_base384_22k, swin_large_22k, swin_large384_22k'
 
-model_name = 'vitbase16'
+model_name = 'swin_tiny'
 dataset_name = 'flowers'
 MODEL_PATH = './model/' + model_name + '_' + dataset_name + '.pth'
 CLASS_NUM = 5
