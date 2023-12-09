@@ -29,7 +29,7 @@ def argspar():
                         help='input batch size for training and eval(default: 60)')
     parser.add_argument('--epochs', type=int, default=100,
                         help='number of epochs to train (default: 200)')
-    parser.add_argument('--lr', type=float, default=0.0001,
+    parser.add_argument('--lr', type=float, default=0.001,
                         help='learning rate')
     parser.add_argument('--step-size', type=int, default=0,
                         help='lr schedule with step_size penalty (default: 10), if step_size=0 not use schedule')
@@ -151,7 +151,7 @@ def main():
 
     if os.path.exists(LOAD_PATH) and args.freeze_layers:
         for name, para in net.named_parameters():
-            if 'head' not in name:
+            if 'fc' not in name:
                 para.requires_grad_(False)
             else:
                 print("training {}".format(name))
