@@ -57,6 +57,7 @@
 * EffieientNetv2
 * Swin Transformer
 * VanillaNet
+* NonLocalNN
 * 
 
 
