@@ -31,7 +31,7 @@
                  └─xxx.jpg
 
   ​       
-# Backbones List
+# Backbone List
 * LeNet
 * AlexNet (2012)
 * GoogLeNet (2014)
