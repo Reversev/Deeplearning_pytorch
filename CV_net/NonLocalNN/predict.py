@@ -11,11 +11,9 @@ from PIL import Image
 from torchvision import transforms
 import matplotlib.pyplot as plt
 from nonlocalnn import model_list
-'''vanillanet_5, vanillanet_6,vanillanet_7,vanillanet_9,
-vanillanet_11,vanillanet_12,vanillanet_13,vanillanet_13x1,vanillanet_13x1a
-'''
 
-model_name = 'vanillanet_5'
+
+model_name = 'resnet56'
 dataset_name = 'flowers'
 MODEL_PATH = './model/' + model_name + '_' + dataset_name + '.pth'
 CLASS_NUM = 5
