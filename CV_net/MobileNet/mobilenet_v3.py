@@ -5,7 +5,8 @@
 # @FileName: model.py
 
 import torch
-import torch.nn as nn, Tensor
+import torch.nn as nn
+from torch import Tensor
 from functools import partial
 import torch.nn.functional as F
 from typing import Any, Callable, List, Optional, Sequence
@@ -86,9 +87,9 @@ class InvertedResidualConfig:
         self.use_hs = activation == "HS" # whether using h-swish activation
         self.stride = stride
 
-        @ staticmethod
-        def adjust_channels(channels: int, width_multi: float):
-            return _make_divisible(channels * width_multi, 8)
+    @ staticmethod
+    def adjust_channels(channels: int, width_multi: float):
+        return _make_divisible(channels * width_multi, 8)
 
 
 class InvertedResidual(nn.Module):
@@ -189,7 +190,7 @@ class MobileNetv3(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d(1)
         self.classifier = nn.Sequential(nn.Linear(lastconv_output_c, last_channel),
                                         nn.Hardswish(inplace=True),
-                                        nn.Dropout(P=0.2, inplace=True),
+                                        nn.Dropout(p=0.2, inplace=True),
                                         nn.Linear(last_channel, num_classes))
         # initalize weights
         for m in self.modules():

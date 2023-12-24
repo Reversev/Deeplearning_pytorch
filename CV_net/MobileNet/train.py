@@ -12,13 +12,14 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 from tqdm import tqdm
 from mobilenet_v2 import MobileNetv2
+from mobilenet_v3 import mobilenet_v3_small, mobilenet_v3_large
 
 
 def main():
-    model_name = 'mobilenet_v2'
-    dataset_name = 'LFW'
+    model_name = 'mobilenet_v3'
+    dataset_name = 'flowers'
     BATCH_SIZE = 64
-    CLASS_NUM = 5749
+    CLASS_NUM = 5
     EPOCH = 100
     step_size = 30
     SAVE_PATH = './model/' + model_name + '_' + dataset_name + '.pth'
@@ -69,7 +70,9 @@ def main():
 
     print("Use {} images for training, {} images for validation.".format(train_num, val_num))
 
-    net = MobileNetv2(num_classes=CLASS_NUM, alpha=1.0, round_nearest=8)
+    net = MobileNetv2(num_classes=CLASS_NUM, alpha=1.0, round_nearest=8)   # 89.07
+    # net = mobilenet_v3_small(num_classes=CLASS_NUM)       # 86.98
+    # net = mobilenet_v3_large(num_classes=CLASS_NUM)       # 88.14
     if os.path.exists(LOAD_PATH):
         print("load weights file: {}".format(LOAD_PATH))
         # delete classifier weights
@@ -80,7 +83,7 @@ def main():
     net = net.to(device)
 
     loss_function = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(net.parameters(), lr=0.0001)
+    optimizer = optim.Adam(net.parameters(), lr=0.001)
     if step_size > 0:
         scheduler = lr_scheduler.StepLR(optimizer, step_size=step_size, gamma=0.5)
 
@@ -102,7 +105,7 @@ def main():
 
             # print info
             running_loss += loss.item()
-            train_bar.desc = "train epoch [{}/{}], loss:{:.3f}".format(epoch+1, EPOCH, loss)
+            train_bar.desc = "train epoch [{}/{}], loss:{:.3f}, lr:{:.5f} ".format(epoch+1, EPOCH, loss, optimizer.state_dict()['param_groups'][0]['lr'])
 
         if step_size > 0:
             scheduler.step()
@@ -119,7 +122,8 @@ def main():
                 acc += torch.eq(pred_y, val_labels.to(device)).sum().item()
 
         val_acc = acc / val_num
-        print('[epoch %d]: training loss: %.3f, val_accuracy: %.3f' % (epoch+1, running_loss/train_steps, val_acc))
+        print('[epoch %d]: training loss: %.3f, val_accuracy: %.3f, lr: %.5f' % 
+              (epoch+1, running_loss/train_steps, val_acc, optimizer.state_dict()['param_groups'][0]['lr']))
 
         if val_acc > best_acc:
             best_acc = val_acc
