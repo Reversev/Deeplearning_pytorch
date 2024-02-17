@@ -10,4 +10,4 @@
 
 > This is a summary for classical architectures (2020 - current):
 
-- 4. CV_modol (***) (classical architectures in Computer Vision)
+- 4. CV_modol (classical architectures in Computer Vision)
