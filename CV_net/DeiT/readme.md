@@ -5,7 +5,7 @@ paper: [https://arxiv.org/abs/2012.12877](https://arxiv.org/abs/2012.12877)
 
 offical code: [https://github.com/facebookresearch/deit](https://github.com/facebookresearch/deit)
 
-#Usage:
+# Usage:
 1. Install timm=0.3.2
 ```Shell
 pip install timm==0.3.2
