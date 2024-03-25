@@ -58,6 +58,7 @@
 * Swin Transformer
 * VanillaNet
 * NonLocalNN
+* TransNeXt (2024)
 * 
 
 
