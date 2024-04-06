@@ -10,7 +10,7 @@ import glob
 import torch
 from PIL import Image
 from torchvision import transforms
-from convmixer import model_dict
+from convmixer import create_convmixer
 ''' 'ConvMixer-512_12, ConvMixer-512_16, ConvMixer-1024_12, ConvMixer-1024_16,'
     'ConvMixer-768_32, ConvMixer-768_32_7, ConvMixer-1024_20, '
     'ConvMixer-1536_20_3, ConvMixer-1536_20_9, ConvMixer-1536_20_9_7' '''
@@ -36,7 +36,7 @@ json_file = open(json_path, "r")
 classes_indict = json.load(json_file)
 print(classes_indict)
 # create model
-net = model_dict.get(model_name)(num_classes=CLASS_NUM)
+net = create_convmixer(model_name, num_classes=CLASS_NUM)
 net = net.to(device)
 
 # load model weights
