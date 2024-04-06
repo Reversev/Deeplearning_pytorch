@@ -101,7 +101,10 @@ model_dict = {
 
 def create_convmixer(model_name: str, num_classes: int = 1000):
     model = model_dict[model_name]
-    model.fc[-1] = nn.Linear(model.fc[-1].in_features, num_classes)
+    if num_classes != 1000:
+        model.fc[-1] = nn.Linear(model.fc[-1].in_features, num_classes)
+    else:
+        pass
     return model
 
 

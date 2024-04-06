@@ -10,12 +10,14 @@ import glob
 import torch
 from PIL import Image
 from torchvision import transforms
-from transNeXt import model_dict
-''' 'transnext_micro', 'transnext_tiny', 'transnext_small', 'transnext_base' '''
+from convmixer import model_dict
+''' 'ConvMixer-512_12, ConvMixer-512_16, ConvMixer-1024_12, ConvMixer-1024_16,'
+    'ConvMixer-768_32, ConvMixer-768_32_7, ConvMixer-1024_20, '
+    'ConvMixer-1536_20_3, ConvMixer-1536_20_9, ConvMixer-1536_20_9_7' '''
 
-model_name = 'transnext_micro'
+model_name = 'ConvMixer-512_12'
 dataset_name = 'flowers'
-MODEL_PATH = './checkpoints/model_transnext_micro_seed608_best.pt'
+MODEL_PATH = './checkpoints/model_ConvMixer-512_12_seed131_best.pt'
 CLASS_NUM = 5
 TEST_PATH = './results/'
 assert os.path.exists(TEST_PATH), "file: '{}' does not exists.".format(TEST_PATH)
