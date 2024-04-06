@@ -60,6 +60,7 @@
 * VanillaNet
 * NonLocalNN
 * TransNeXt (2024)
+* ConvMixer (2022)
 * 
 
 
