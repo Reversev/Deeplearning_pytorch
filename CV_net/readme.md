@@ -61,6 +61,7 @@
 * NonLocalNN
 * TransNeXt (2024)
 * ConvMixer (2022)
+* MobileNetv4 (2024)
 * 
 
 
