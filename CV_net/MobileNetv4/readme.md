@@ -1,9 +1,8 @@
-# TransNeXt
-TransNeXt: Robust Foveal Visual Perception for Vision Transformers
+# MobileNetV4
+MobileNetV4 - Universal Models for the Mobile Ecosystem
 
-paper: [https://arxiv.org/pdf/2311.17132.pdf](https://arxiv.org/pdf/2311.17132.pdf)
-
-offical code: [https://github.com/DaiShiResearch/TransNeXt](https://github.com/DaiShiResearch/TransNeXt)
+paper: [http://arxiv.org/abs/2404.10518](http://arxiv.org/abs/2404.10518)
+offical code: [https://github.com/tensorflow/models/blob/master/official/vision/modeling/backbones/mobilenet.py(tensorflow)](https://github.com/tensorflow/models/blob/master/official/vision/modeling/backbones/mobilenet.py(tensorflow))
 
 #Usage:
 1. Install timm=0.3.2
