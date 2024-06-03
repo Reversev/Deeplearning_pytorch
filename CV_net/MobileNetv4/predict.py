@@ -11,11 +11,11 @@ import torch
 from PIL import Image
 from torchvision import transforms
 from transNeXt import model_dict
-''' 'transnext_micro', 'transnext_tiny', 'transnext_small', 'transnext_base' '''
+''' 'MNV4ConvSmall', 'MNV4ConvMedium', 'MNV4ConvLarge', 'MNV4HybridMedium', 'MNV4HybridLarge' '''
 
-model_name = 'transnext_micro'
+model_name = 'MNV4ConvSmall'
 dataset_name = 'flowers'
-MODEL_PATH = './checkpoints/model_transnext_micro_seed608_best.pt'
+MODEL_PATH = './checkpoints/model_MNV4ConvSmall_seed608_best.pt'
 CLASS_NUM = 5
 TEST_PATH = './results/'
 assert os.path.exists(TEST_PATH), "file: '{}' does not exists.".format(TEST_PATH)
