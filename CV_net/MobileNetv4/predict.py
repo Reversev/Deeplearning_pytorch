@@ -10,7 +10,7 @@ import glob
 import torch
 from PIL import Image
 from torchvision import transforms
-from transNeXt import model_dict
+from MobileNetv4 import create_mobilenetv4
 ''' 'MNV4ConvSmall', 'MNV4ConvMedium', 'MNV4ConvLarge', 'MNV4HybridMedium', 'MNV4HybridLarge' '''
 
 model_name = 'MNV4ConvSmall'
@@ -34,7 +34,7 @@ json_file = open(json_path, "r")
 classes_indict = json.load(json_file)
 print(classes_indict)
 # create model
-net = model_dict.get(model_name)(num_classes=CLASS_NUM)
+net = create_mobilenetv4(model_name)(num_classes=CLASS_NUM)
 net = net.to(device)
 
 # load model weights
