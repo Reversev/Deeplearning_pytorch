@@ -34,7 +34,7 @@ json_file = open(json_path, "r")
 classes_indict = json.load(json_file)
 print(classes_indict)
 # create model
-net = create_mobilenetv4(model_name)(num_classes=CLASS_NUM)
+net = create_mobilenetv4(model_name,num_classes=CLASS_NUM)
 net = net.to(device)
 
 # load model weights
