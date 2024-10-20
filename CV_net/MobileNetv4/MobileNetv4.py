@@ -44,14 +44,23 @@ def make_divisible(
 
 
 def conv2d(in_channels, out_channels, kernel_size=3, stride=1, groups=1, bias=False, norm=True, act=True):
-    conv = nn.Sequential()
+    # conv = nn.Sequential()
+    # padding = (kernel_size - 1) // 2
+    # conv.append(nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=bias, groups=groups))
+    # if norm:
+    #     conv.append(nn.BatchNorm2d(out_channels))
+    # if act:
+    #     conv.append(nn.ReLU6())
+
+    conv = []
     padding = (kernel_size - 1) // 2
     conv.append(nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=bias, groups=groups))
     if norm:
         conv.append(nn.BatchNorm2d(out_channels))
     if act:
         conv.append(nn.ReLU6())
-    return conv
+
+    return nn.Sequential(*conv)
 
 
 class InvertedResidual(nn.Module):
