@@ -13,12 +13,16 @@ from torchvision import transforms
 from MobileNetv4 import create_mobilenetv4
 ''' 'MNV4ConvSmall', 'MNV4ConvMedium', 'MNV4ConvLarge', 'MNV4HybridMedium', 'MNV4HybridLarge' '''
 
-model_name = 'MNV4ConvSmall'
+model_name = 'MNV4HybridMedium'  # chance from above structure
 dataset_name = 'flowers'
-MODEL_PATH = './checkpoints/model_MNV4ConvSmall_seed608_best.pt'
+MODEL_PATH = './checkpoints/model_MNV4HybridMedium_seed772_best.pt'
 CLASS_NUM = 5
 TEST_PATH = './results/'
-assert os.path.exists(TEST_PATH), "file: '{}' does not exists.".format(TEST_PATH)
+if os.path.exists(TEST_PATH):
+    pass
+else:
+    os.path.mkdir(TEST_PATH)
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print('Use device: ', device)
 # pre-processing
@@ -28,7 +32,6 @@ transform = transforms.Compose([transforms.Resize((224, 224)),
 
 # read class_dictionary
 json_path = './classes_indices.json'
-assert os.path.exists(json_path), "file: '{}' does not exists.".format(json_path)
 
 json_file = open(json_path, "r")
 classes_indict = json.load(json_file)
