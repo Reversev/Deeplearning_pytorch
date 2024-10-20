@@ -31,5 +31,5 @@ python train.py --evaluate --gpu 1 --resume checkpoints/model_MNV4ConvSmall_seed
 # Predict
 Modify ```model_name```, ```dataset_name```, ```MODEL_PATH``` and ```CLASS_NUM``` in ```predict.py``` script. Put pictures into ```results``` directory.
 ```python
-python predict.py
+python predict.py   # you need to modify model path at 18th line in the script. Default: './checkpoints/model_MNV4HybridMedium_seed772_best.pt'  
 ```
